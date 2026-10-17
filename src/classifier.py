@@ -12,10 +12,16 @@ MODEL_NAME = os.getenv("GROQ_MODEL", "qwen/qwen3.8-27b")
 class IntentType(str, Enum):
     EXPLAIN = "Explain Code"
     GENERATE = "Generate Code"
+    OFF_TOPIC = "Off Topic"
 
 
 class IntentSchema(BaseModel):
-    intent: IntentType = Field(description="Classify whether the user wants code explained or generated.")
+    intent: IntentType = Field(description=(
+    "Explain Code: the user wants existing code explained, analysed or debugged. "
+    "Generate Code: the user wants new code written. "
+    "Off Topic: anything not about programming or software (general knowledge, "
+    "chit-chat, geography, etc.)."
+))
 
 
 class RelevanceSchema(BaseModel):
