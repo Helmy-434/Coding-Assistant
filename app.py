@@ -213,6 +213,8 @@ if prompt:
 
         blocks = python_blocks(reply)
         if not learned:
-            memory.add_turn(prompt, reply, code=blocks[-1] if blocks else "")
+            # Only store in "last_code" if produced by Route 2 (Code Generation)
+            generated_code = blocks[-1] if (blocks and meta.get("route") == "generate_pipeline") else ""
+            memory.add_turn(prompt, reply, code=generated_code)
         st.session_state.messages.append({"role": "assistant", "content": reply, "meta": meta})
         render_run_buttons(reply, f"new{len(st.session_state.messages)}")
