@@ -14,10 +14,7 @@ class RAGManager:
     def __init__(self, persist_directory="./chroma_db"):
         self.persist_directory = os.path.abspath(persist_directory)
         self.client = chromadb.PersistentClient(path=self.persist_directory)
-        self.embedding_fn = embedding_functions.VoyageAIEmbeddingFunction(
-            api_key=os.getenv("VOYAGE_API_KEY"),
-            model_name="voyage-code-3"
-        )
+        self.embedding_fn = embedding_functions.DefaultEmbeddingFunction()
         self.collection = self.client.get_or_create_collection(
             name="knowledge_base",
             embedding_function=self.embedding_fn

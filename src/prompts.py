@@ -1,4 +1,4 @@
-"""System prompts, templates, and domain response messages for the code assistant."""
+
 
 EXPLAIN_SYSTEM = (
     "You are an expert programming tutor. Explain the code the user provides "
