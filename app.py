@@ -26,7 +26,7 @@ from src.prompts import (
 
 st.set_page_config(page_title="Code Assistant", page_icon="💻", layout="wide")
 
-CODE_BLOCK = re.compile(r"```(\w*)\n(.*?)```", re.S)
+CODE_BLOCK = re.compile(r"```([^\r\n`]*)\r?\n(.*?)```", re.S)
 
 # ---------------------------------------------------------------- state
 if "messages" not in st.session_state:
@@ -43,7 +43,12 @@ memory: Memory = st.session_state.memory
 
 # ---------------------------------------------------------------- helpers
 def python_blocks(text: str) -> list[str]:
-    return [c for lang, c in CODE_BLOCK.findall(text) if lang.lower() in ("python", "py")]
+    blocks = []
+    for language, code in CODE_BLOCK.findall(text):
+        normalized_language = language.strip().lower()
+        if normalized_language in ("python", "py", ""):
+            blocks.append(code.strip("\r\n"))
+    return blocks
 
 
 def render_run_buttons(text: str, key_prefix: str):
