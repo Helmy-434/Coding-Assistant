@@ -167,7 +167,7 @@ with st.sidebar:
 
 # ---------------------------------------------------------------- main UI
 st.title("💻 Code Assistant")
-st.caption("Explain code · Generate code with RAG · Run it · Teach it new solutions")
+st.caption("Explain code · Generate code with RAG")
 
 for idx, m in enumerate(st.session_state.messages):
     with st.chat_message(m["role"]):
