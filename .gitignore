@@ -221,3 +221,5 @@ __marimo__/
 
 # Chroma vector database
 chroma_db/
+
+data.py
