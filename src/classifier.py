@@ -55,7 +55,6 @@ def get_classifier() -> WorkflowClassifier:
 
 
 def classify(query: str) -> str:
-    """Classify user intent into 'Explain Code' or 'Generate Code'."""
     try:
         classifier = get_classifier()
         intent = classifier.classify_intent(query)
@@ -69,7 +68,6 @@ def classify(query: str) -> str:
 
 
 def route(intent: str) -> str:
-    """Route classified intent to corresponding pipeline name."""
     intent_str = str(intent).lower()
     if "explain" in intent_str:
         return "explain_pipeline"
