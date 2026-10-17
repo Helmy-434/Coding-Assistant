@@ -80,8 +80,12 @@ def looks_like_solution(pending_request: str, message: str) -> bool:
 
 
 def build_messages(user_content: str) -> list[dict]:
-    history = [{"role": m["role"], "content": m["content"]}
-               for m in st.session_state.messages[-8:]]
+    msgs = st.session_state.messages
+    # If the user message was already appended to session_state, take previous messages as history
+    if msgs and msgs[-1]["role"] == "user" and msgs[-1]["content"] == user_content:
+        history = [{"role": m["role"], "content": m["content"]} for m in msgs[-9:-1]]
+    else:
+        history = [{"role": m["role"], "content": m["content"]} for m in msgs[-8:]]
     return history + [{"role": "user", "content": user_content}]
 
 
@@ -127,7 +131,7 @@ with st.sidebar:
     st.header("⚙️ Settings")
     st.caption(f"Model: `{llm.MODEL}`")
     uploaded = st.file_uploader("Attach a code file (optional)",
-                                type=["py", "txt", "js", "ts", "java", "c", "cpp", "go", "rs", "md"])
+                                type=["py", "txt", "js", "ts", "java", "c", "cpp", "cs", "csx", "go", "rs", "md"])
 
     if uploaded is not None:
         if st.button("📥 Index file to Knowledge Base"):

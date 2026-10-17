@@ -40,6 +40,7 @@ class RAGManager:
             ".hpp": Language.CPP,
             ".java": Language.JAVA,
             ".cs": Language.CSHARP,
+            ".csx": Language.CSHARP,
             ".html": Language.HTML,
             ".htm": Language.HTML,
         }
