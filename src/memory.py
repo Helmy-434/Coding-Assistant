@@ -7,7 +7,6 @@ class Memory:
         }
 
     def render(self) -> str:
-        """Render memory data into a string for system prompt injection."""
         parts = []
         if self.data.get("preferences"):
             prefs_str = ", ".join(f"{k}: {v}" for k, v in self.data["preferences"].items())
@@ -25,7 +24,6 @@ class Memory:
         return "\n\n".join(parts) if parts else "No prior context."
 
     def update_preferences(self, prompt: str):
-        """Update user preferences based on user request keywords."""
         p_lower = prompt.lower()
         if "python 3" in p_lower:
             self.data["preferences"]["python_version"] = "Python 3"
